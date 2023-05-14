@@ -1,0 +1,6 @@
+[submodule "abstract-machine"]
+	path = abstract-machine
+	url = git@github.com:NJU-ProjectN/abstract-machine.git
+[submodule "am-kernels"]
+	path = am-kernels
+	url = git@github.com:NJU-ProjectN/am-kernels.git
