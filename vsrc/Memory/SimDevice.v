@@ -10,7 +10,7 @@ module SimDevice(
 );
     //write to uart
     parameter STDOUT = 32'h8000_0001;
-    parameter UART_ADDR = 16'b0000;
+    parameter UART_ADDR = 16'h03f8;
     always @(posedge clk)begin
         if (wen && addr[15:0] == UART_ADDR)begin
             $fwrite(STDOUT,"\033[1;34m%c\033[0m", wdata);

@@ -28,9 +28,6 @@ module RegFile(
         for (i = 0; i < 32; i = i + 1)begin
             always@(posedge clk) begin                   
                 //在此补充完成控制信号控制寄存器堆写操作
-                if (rf_addr_w == i)begin
-                    file[i] <= rf_data_w;
-                end
                 if (!rst_n) begin
                     file[i] <= 32'b0;
                 end  
