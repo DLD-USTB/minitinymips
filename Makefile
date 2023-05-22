@@ -1,7 +1,8 @@
 FILESET += $(shell find vsrc/Core -name "*.v")
 FILESET += $(shell find vsrc/Memory -name "*v")
-FILESET += vsrc/SimTop.v vsrc/Top.v
-TOP ?= SimTop
+FILESET += $(shell find vsrc/Simulation -name "*.v")
+
+TOP ?= SimEnv
 BUILD_DIR = build
 SIM_OBJ = $(BUILD_DIR)/sim
 TRACE-y = -PSimTop.TRACE=1 
@@ -14,7 +15,7 @@ FLAGS += -PSimTop.SIM_CYCLE=$(SIM_CYCLE)
 run:all
 $(SIM_OBJ):
 	mkdir -p build
-	iverilog -s $(TOP) $(FILESET) $(FLAGS) -o $@ 2>/dev/null
+	iverilog -s $(TOP) $(FILESET) $(FLAGS) -o $@ 
 clean:
 	rm -rf $(SIM_OBJ)
 all:$(SIM_OBJ)

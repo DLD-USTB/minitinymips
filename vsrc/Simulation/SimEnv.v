@@ -1,4 +1,4 @@
-module SimTop();
+module SimEnv();
     reg clk;
     reg rst_n;
 
@@ -19,7 +19,7 @@ module SimTop();
         wait_cycles(10);
         rst_n = 1;
     end
-    Top u_top(
+    SimTop u_top(
         .clk(clk), 
         .rst_n(rst_n) 
     );
@@ -51,6 +51,6 @@ module SimTop();
 
     initial begin            
         $dumpfile("wave.vcd");       
-        $dumpvars(0, SimTop);    
+        $dumpvars(0, SimEnv);    
     end
 endmodule

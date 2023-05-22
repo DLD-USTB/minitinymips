@@ -1,12 +1,6 @@
-module Top(
-    input wire clk_in,
-    input wire rst_in_n,
-    output wire [ 15 : 0 ]  led,
-    input  wire [ 15 : 0 ]  sw,
-    output wire [  7 : 0 ]  seg0,
-    output wire [  7 : 0 ]  seg1,
-    output wire [  3 : 0 ]  sel0,
-    output wire [  3 : 0 ]  sel1
+module SimTop(
+    input wire clk,
+    input wire rst_n
 );
     // CPU to rounter and inst mem connection
     wire [ 31 : 0 ] inst_addr, data_addr;
@@ -21,21 +15,7 @@ module Top(
     
     wire [ 31 : 0 ] datamem_rdata, device_rdata;
     wire            device_ren,device_wen, datamem_ren, datamem_wen;
-    wire            clk;
 
-    clk_wiz_0 u_pll (
-        .clk_in1(clk_in),
-        .clk_out1(clk)
-    );
-    wire rst_n;
-    reg [1 : 0] rst_reg;
-    always @(posedge clk)begin
-        rst_reg[0] <= rst_in_n;
-        rst_reg[1] <= rst_reg[0];
-    end
-    
-    assign rst_n = rst_reg[1];
-    
     CPU u_cpu(
         .clk(clk), 
         .rst_n(rst_n), 
@@ -49,7 +29,7 @@ module Top(
         .data_wr(data_wr), 
         .data_wstrb(data_wstrb) 
     );
-    Device u_dev(
+    SimDevice u_dev(
         .clk(clk), 
         .rst_n(rst_n), 
         .addr(common_addr), 
@@ -57,13 +37,7 @@ module Top(
         .rdata(device_rdata), 
         .wdata(common_wdata), 
         .wen(device_wen), 
-        .wstrb(common_wstrb),
-        .led(led),
-        .sw(sw),
-        .seg0(seg0),
-        .seg1(seg1),
-        .sel0(sel0),
-        .sel1(sel1)
+        .wstrb(common_wstrb)  
     );
     Memory u_mem(
         .clk(clk), 
